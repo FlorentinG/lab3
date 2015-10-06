@@ -1,54 +1,81 @@
 function [] = code3()
-L=10;
+% Function for LAB3 
+% Authors: David Weicker and Florentin Goyens
+close all;
+
+%no speed and varible N
+N = [10 20 40 80];
+v = 0;
+T = {0,0,0,0};
+z = {0,0,0,0};
+for i = 1:4
+    [T{i},z{i}] = temp(N(i),v);
+end
+figure;
+plot(z{1},T{1},'b',z{2},T{2},'g',z{3},T{3},'r',z{4},T{4},'k');title('Temperature in the pipe for v=0 and various stepsizes','FontSize',14)
+xlabel('z-axis [m]','FontSize',14);ylabel('Temperature [K]','FontSize',14);legend('N=10','N=20','N=40','N=80');
+
+%fixed N=40 and variable speed
+N = 40;
+v = [0.1 0.5 1 10];
+for i = 1:4
+    [T{i},z{i}] = temp(N,v(i));
+end
+figure;
+plot(z{1},T{1},'b',z{2},T{2},'g',z{3},T{3},'r',z{4},T{4},'k');title('Temperature in the pipe for N=40 and various speeds','FontSize',14);
+xlabel('z-axis [m]','FontSize',14);ylabel('Temperature [K]','FontSize',14);legend('v=0.1','v=0.5','v=1','v=10');
+
+%large v=10 and variable N
+N = [10 20 40];
+v = 10;
+for i = 1:3
+    [T{i},z{i}] = temp(N(i),v);
+end
+figure;
+plot(z{1},T{1},'b',z{2},T{2},'g',z{3},T{3},'r');title('Temperature in the pipe for large speed (v=10) and various stepsizes','FontSize',14);
+xlabel('z-axis [m]','FontSize',14);ylabel('Temperature [K]','FontSize',14);legend('N=10','N=20','N=40');
+
+end
+
+function q = Q(z)
+% Right-hand side of the system
+% z is the discretized axis
 a=1;
 b=3;
 Q0=50;
+T0=400;
+Tout=300;
+kv = 10;
+
+q = (a<=z) & (z<=b);
+q = Q0*q.*sin(pi*(z-a)/(b-a));
+%boundary conditions
+q(1) = T0;
+q(end) = -kv*Tout;
+end
+
+function [T,z] = temp(N,v)
+%Param
+L=10;
 k=0.5;
 kv=10;
 rho=1;
 C=1;
-T_out=300;
-T_0=400;
-N=40;
-h=L/N;
-x=linspace(0,L,N+1);
 
-A=sparse(N+1);
-b=zeros(N+1,1);
+h = L/N;
+z = linspace(0,L,N+1);
+q = Q(z)*h*h;
+alpha = -k-v*rho*C*h/2; %tridiagonal terms
+beta = 2*k;
+gamma = -k+v*rho*C*h/2;
+A = spdiags([alpha*ones(N+1,1) beta*ones(N+1,1) gamma*ones(N+1,1)],-1:1,N+1,N+1); %sparse matrix
+A(1,1) = h*h;
+A(1,2) = 0;
+A(N+1,N) = k*h;
+A(N+1,N+1) = -h*k - kv*h*h;
 
-%T(0)=T_0
-A(1,1)=1;
-b(1,1)=T_0;
-
-%T(L) condition
-A(end,end)=-(k/h + kv);
-A(end,end-1)=k/h;
-b(end,1)=-kv*T_out;
-
-for i=2:N
-	A(i,i)=2*k;
-	A(i,i-1)=-k - v*rho*C*h/2;
-	A(i,i+1)=-k + v*rho*C*h/2;
+T = A\q';
 end
-
-index = find(a<x<b,1);% should be ok
-
-b(index)=Q(x(index));% TODO Q must accept vector input
-
-solution = A\b;
-
-plot(x,solution);
-end
-
-function y = Q(x)
-% x belongs to [0,10]
-a=1;
-b=3;
-Q0=50;
-y=zeros(size(x));
-	y=Q0*sin(pi*(x-a)./(b-a));
-end
-
 
 
 
