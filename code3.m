@@ -55,6 +55,8 @@ q(end) = -kv*Tout;
 end
 
 function [T,z] = temp(N,v)
+%Solve the problem for N+1 points between 0 and 10 and for speed v
+
 %Param
 L=10;
 k=0.5;
