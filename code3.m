@@ -40,45 +40,51 @@ end
 function q = Q(z)
 % Right-hand side of the system
 % z is the discretized axis
+[a,b,~,~,~,~,~,Q0,~,~,~]=param();
+
+q = (a<=z) & (z<=b);
+q = Q0*q.*sin(pi*(z-a)/(b-a));
+end
+
+function [T,z] = temp(N,v)
+%Solve the problem for N+1 points between 0 and 10 and for speed v
+[~,~,L,k,kv,rho,C,~,T0,Tout,~]=param();
+
+h = L/N;
+z = linspace(0,L,N+1);
+q = Q(z(2:end))*h*h;
+
+alpha = -k-v*rho*C*h/2; %tridiagonal terms
+beta = 2*k;
+gamma = -k+v*rho*C*h/2;
+
+delta = 2*h*kv/k; %boundary conditions
+q(1) = q(1) - alpha*T0;
+q(end) = q(end) - gamma*delta*Tout;
+
+e = ones(N,1);
+A = spdiags([alpha*e beta*e gamma*e],-1:1,N,N); %sparse matrix
+A(N,N-1) = A(N,N-1) + gamma;
+A(N,N) = A(N,N) - gamma*delta;
+
+T = T0*ones(N+1,1);
+T(2:end) = A\q';
+end
+
+function [a,b,L,k,kv,rho,C,Q0,T0,Tout,v] = param()
+%Initialize all the parameters for the model
+L=10;
+k=0.5;
+kv=10;
+v=0;
+rho=1;
+C=1;
 a=1;
 b=3;
 Q0=50;
 T0=400;
 Tout=300;
-kv = 10;
-
-q = (a<=z) & (z<=b);
-q = Q0*q.*sin(pi*(z-a)/(b-a));
-%boundary conditions
-q(1) = T0;
-q(end) = -kv*Tout;
 end
-
-function [T,z] = temp(N,v)
-%Solve the problem for N+1 points between 0 and 10 and for speed v
-
-%Param
-L=10;
-k=0.5;
-kv=10;
-rho=1;
-C=1;
-
-h = L/N;
-z = linspace(0,L,N+1);
-q = Q(z)*h*h;
-alpha = -k-v*rho*C*h/2; %tridiagonal terms
-beta = 2*k;
-gamma = -k+v*rho*C*h/2;
-A = spdiags([alpha*ones(N+1,1) beta*ones(N+1,1) gamma*ones(N+1,1)],-1:1,N+1,N+1); %sparse matrix
-A(1,1) = h*h;
-A(1,2) = 0;
-A(N+1,N) = k*h;
-A(N+1,N+1) = -h*k - kv*h*h;
-
-T = A\q';
-end
-
 
 
 
