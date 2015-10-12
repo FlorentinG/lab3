@@ -106,7 +106,7 @@ In a one dimensional pipe we are interested in the temperature evolution along t
 
 \subsection*{Distretization to a linear system of equations}
 
-The z-axis is distretized in $N+1$ points spreading from $0$ to $L$. the differential equation for the temperature is the following
+The z-axis is discretization in $N+1$ points spreading from $0$ to $L$. the differential equation for the temperature is the following
 $$-\kappa \dfrac{d^{2}T}{dz^{2}} +v\rho C\dfrac{dT}{dz}=Q(z)$$
 with $$Q(z)= \left\{ \begin{array}{lll}
 0 & if & 0\leq z <a\\
@@ -116,19 +116,28 @@ Q_{0}\sin \Big(\dfrac{z-a}{b-a}\pi \Big) & if & a \leq z \leq b\\
 We assumed that $\kappa$ as a constant value through the pipe.
 
 The boundary conditions are
-$$T(0)=T_{0}$$ and $$-\kappa \dfrac{dT}{dz}(L)=k_{v}(T(L)-T_{out}.$$
+$$T(0)=T_{0}$$ and $$-\kappa \dfrac{dT}{dz}(L)=k_{v}(T(L)-T_{out}).$$
 
-For the distretization, let $T_{0}, T_{1}, \dots, T_{N}$ be the unknown temperature we will solve for. Define $z_{i}=i*h$ and $T_{i}\approx T(z_{i})$. It is clear that $z_0 =0$ and $x_N =L$.
+For the discretization, let $T_{0}, T_{1}, \dots, T_{N}$ be the unknown temperature we will solve for. The step is $h=L/N$. Define $z_{i}=i*h$ and $T_{i}\approx T(z_{i})$. It is clear that $z_0 =0$ and $x_N =L$. We also define the ghost point $x_{N+1}=L+h$ that will be used implicitly to write the system. The real unknowns we will include in the system are  $T_{1}, \dots, T_{N}$. $T_{0}$ is known from the start. 
 
 
 With finite difference approximation we rewrite the problem as 
 $$-\kappa \dfrac{T_{i+1}-2T_{i}+T_{i-1}}{h^{2}}
 + v\rho C\dfrac{T_{i+1}-T_{i-1}}{2h}=Q(z_{i}),$$
-for all the interior points, $i=1, \dots N-1$.
-The step is $h=L/N$.
+for all the points, $i=1, \dots N$. This is equivalent to
+$$\underbrace{\Big(-\dfrac{v\rho Ch}{2}  -\kappa    }_{\alpha}\Big) T_{i-1} 
++ \underbrace{\Big(2k\Big)}_{\beta} T_{i-1}
++ \underbrace{\Big( \dfrac{v\rho Ch}{2}  -\kappa    }_{\gamma}\Big) T_{i+1}
+=h^{2}Q(z_{i}),$$
+
+
 As for the boundary condition we have 
-$$-\kappa \dfrac{T_{N}-T_{N-1}}{h}=k_{v}\Big(T_{N}-T_{out}),$$
-and the straightforward $$T_{0}=400.$$
+the straightforward $$T_{0}=400,$$
+as well as
+$$-\kappa \dfrac{T_{N+1}-T_{N-1}}{h}=k_{v}(T_{N}-T_{out}).$$
+This allows to express $T_{N+1}$ with other variables and remove it from the system of equations.
+
+$$T_{N+1}=T_{N-1}-\dfrac{2hk_{v}}{k}T_{N}+\dfrac{2hk_{v}}{k}T_{out}.$$
 
 
 This is a linear system of $N+1$ equations. As we would like to avoid dividing by the small value $h^2$, we rewrite the system as follows. This system is tridiagonal and the Matlab \textit{band solver} will be very (very) efficient is the matrix is defined as sparse.
