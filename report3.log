@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.7.6)  12 OCT 2015 18:41
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2014.11.17)  13 OCT 2015 01:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1300,41 +1300,163 @@ LaTeX Font Info:    Try loading font information for U+rsfs on input line 91.
 (/usr/share/texlive/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 144.
- [1
+<./white.png, id=28, 680.5425pt x 286.06876pt>
+File: ./white.png Graphic file (type png)
+ <use ./white.png>
+Package pdftex.def Info: ./white.png used on input line 127.
+(pdftex.def)             Requested size: 407.66833pt x 171.3632pt.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 144.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+Package epstopdf Info: Source file: <./fig1.eps>
+(epstopdf)                    date: 2015-10-12 21:35:37
+(epstopdf)                    size: 20712 bytes
+(epstopdf)             Output file: <./fig1-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-10-12 23:52:21
+(epstopdf)                    size: 10174 bytes
+(epstopdf)             Command: <repstopdf --outfile=./fig1-eps-converted-to.pd
+f ./fig1.eps>
+(epstopdf)             \includegraphics on input line 166.
+Package epstopdf Info: Output file is already uptodate.
+
+<./fig1-eps-converted-to.pdf, id=48, 1228.59pt x 738.76pt>
+File: ./fig1-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ./fig1-eps-converted-to.pdf>
+Package pdftex.def Info: ./fig1-eps-converted-to.pdf used on input line 166.
+(pdftex.def)             Requested size: 407.66833pt x 245.13298pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 173.
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 173.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 173.
+
+Package epstopdf Info: Source file: <./fig2.eps>
+(epstopdf)                    date: 2015-10-12 21:35:37
+(epstopdf)                    size: 20821 bytes
+(epstopdf)             Output file: <./fig2-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-10-13 00:03:03
+(epstopdf)                    size: 10099 bytes
+(epstopdf)             Command: <repstopdf --outfile=./fig2-eps-converted-to.pd
+f ./fig2.eps>
+(epstopdf)             \includegraphics on input line 179.
+Package epstopdf Info: Output file is already uptodate.
+<./fig2-eps-converted-to.pdf, id=50, 1228.59pt x 738.76pt>
+File: ./fig2-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ./fig2-eps-converted-to.pdf>
+Package pdftex.def Info: ./fig2-eps-converted-to.pdf used on input line 179.
+(pdftex.def)             Requested size: 407.66833pt x 245.13298pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 186.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 186.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 186.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 186.
+
+Package epstopdf Info: Source file: <./fig3.eps>
+(epstopdf)                    date: 2015-10-12 21:35:37
+(epstopdf)                    size: 18999 bytes
+(epstopdf)             Output file: <./fig3-eps-converted-to.pdf>
+(epstopdf)                    date: 2015-10-13 00:10:13
+(epstopdf)                    size: 9792 bytes
+(epstopdf)             Command: <repstopdf --outfile=./fig3-eps-converted-to.pd
+f ./fig3.eps>
+(epstopdf)             \includegraphics on input line 192.
+Package epstopdf Info: Output file is already uptodate.
+<./fig3-eps-converted-to.pdf, id=52, 1228.59pt x 738.76pt>
+File: ./fig3-eps-converted-to.pdf Graphic file (type pdf)
+
+<use ./fig3-eps-converted-to.pdf>
+Package pdftex.def Info: ./fig3-eps-converted-to.pdf used on input line 192.
+(pdftex.def)             Requested size: 407.66833pt x 245.13298pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 200.
+[2pdfTeX warning (ext4): destination with the same identifier (name{figure.0.1}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.200 \end{document}
+                     <./white.png>] [3pdfTeX warning (ext4): destination with t
+he same identifier (name{figure.0.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.200 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.0.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.200 \end{document}
+                     <./fig1-eps-converted-to.pdf> <./fig2-eps-converted-to.pdf
+>] [4pdfTeX warning (ext4): destination with the same identifier (name{figure.0
+.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.200 \end{document}
+                     <./fig3-eps-converted-to.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 200.
  (./report3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 144.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 144.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 200.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 200.
 Package rerunfilecheck Info: File `report3.out' has not changed.
-(rerunfilecheck)             Checksum: 6E75241B0E0DAE2DFF52B7DA91A8DABB;70.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 144.
+(rerunfilecheck)             Checksum: 07B162D560DAD4592475AEC31D2EF203;416.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 200.
  ) 
 Here is how much of TeX's memory you used:
- 19749 strings out of 493304
- 330406 string characters out of 6139872
- 453072 words of memory out of 5000000
- 22743 multiletter control sequences out of 15000+600000
- 46330 words of font info for 47 fonts, out of 8000000 for 9000
+ 19804 strings out of 493304
+ 331293 string characters out of 6139870
+ 454071 words of memory out of 5000000
+ 22781 multiletter control sequences out of 15000+600000
+ 50795 words of font info for 54 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 56i,12n,72p,430b,337s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
-ips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/s
-hare/texmf/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/share/texmf/fonts/enc/dvips/l
-m/lm-rm.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texm
+ 56i,12n,72p,430b,341s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dv
+ips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share
+/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm
+-mathex.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texm
 f/fonts/type1/public/lm/lmcsc10.pfb></usr/share/texmf/fonts/type1/public/lm/lme
 x10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/share/texmf/fo
-nts/type1/public/lm/lmmi8.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb
-></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type
-1/public/lm/lmr8.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/s
-hare/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/publi
-c/lm/lmsy8.pfb>
-Output written on report3.pdf (2 pages, 161733 bytes).
+nts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi8.pf
+b></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/typ
+e1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pfb></usr/s
+hare/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/type1/publi
+c/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
+Output written on report3.pdf (4 pages, 191625 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 63 compressed objects within 1 object stream
- 5 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 148 PDF objects out of 1000 (max. 8388607)
+ 118 compressed objects within 2 object streams
+ 14 named destinations out of 1000 (max. 500000)
+ 73 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -104,7 +104,7 @@ In a one dimensional pipe we are interested in the temperature evolution along t
 
 
 
-\subsection*{Distretization to a linear system of equations}
+\subsection{Distretization to a linear system of equations}
 
 The z-axis is discretization in $N+1$ points spreading from $0$ to $L$. the differential equation for the temperature is the following
 $$-\kappa \dfrac{d^{2}T}{dz^{2}} +v\rho C\dfrac{dT}{dz}=Q(z)$$
@@ -119,6 +119,17 @@ The boundary conditions are
 $$T(0)=T_{0}$$ and $$-\kappa \dfrac{dT}{dz}(L)=k_{v}(T(L)-T_{out}).$$
 
 For the discretization, let $T_{0}, T_{1}, \dots, T_{N}$ be the unknown temperature we will solve for. The step is $h=L/N$. Define $z_{i}=i*h$ and $T_{i}\approx T(z_{i})$. It is clear that $z_0 =0$ and $x_N =L$. We also define the ghost point $x_{N+1}=L+h$ that will be used implicitly to write the system. The real unknowns we will include in the system are  $T_{1}, \dots, T_{N}$. $T_{0}$ is known from the start. 
+
+The figure~\ref{fig:0} illustrates the discretization and the usage of ghost points depending on the boundary conditions.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = 0.9\textwidth]{./white.png}
+\caption{Discretization and ghost points.}
+\label{fig:0}
+\end{figure}
+
+
 
 
 With finite difference approximation we rewrite the problem as 
@@ -140,6 +151,50 @@ This allows to express $T_{N+1}$ with other variables and remove it from the sys
 $$T_{N+1}=T_{N-1}-\dfrac{2hk_{v}}{k}T_{N}+\dfrac{2hk_{v}}{k}T_{out}.$$
 
 
-This is a linear system of $N+1$ equations. As we would like to avoid dividing by the small value $h^2$, we rewrite the system as follows. This system is tridiagonal and the Matlab \textit{band solver} will be very (very) efficient is the matrix is defined as sparse.
+This is a linear system of $N$ equations. As we would like to avoid dividing by the small value $h^2$, we rewrite the system as follows. This system is tridiagonal and the Matlab \textit{band solver} will be very (very) efficient is the matrix is defined as sparse.
+
+
+
+
+
+\subsection{Convergence of solution without convection}
+
+We now set $v=0$ and solve the equation for increasing values of $N$. Results on figure~\ref{fig:1}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = 0.9\textwidth]{./fig1.eps}
+\caption{Convergence of solution without convection.}
+\label{fig:1}
+\end{figure}
+
+We see that increasing $N$ has a great effect on the quality of the solution. Furthermore the solution corresponds visually well to the impulse $Q(z)$.
+
+\subsection{Increasing speed for $N=40$}
+
+Let us set $N=40$. We will now have $v$ vary and take the values $0.1, 0.5, 1,10$. Results on figure~\ref{fig:2}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = 0.9\textwidth]{./fig2.eps}
+\caption{Solution with increasing speed $v$.}
+\label{fig:2}
+\end{figure}
+
+We clearly notice that oscillations occur when $v=10$.
+
+\subsection{Increasing $N$ for $v=10$}
+
+As we want to see better how the oscillation appears, we increase the precision with $N$ for $v$ fixed at 10. Results on figure~\ref{fig:3}.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = 0.9\textwidth]{./fig3.eps}
+\caption{Capture the oscillation with increasing $N$.}
+\label{fig:3}
+\end{figure}
+
+As the level of the discretization increases with $N$, we see more and more oscillation.
+
 
 \end{document}
