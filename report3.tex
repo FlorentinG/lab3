@@ -98,15 +98,15 @@ $\text{13}^{\text{th}}$ October 2015\\[0.2cm]
 \end{center}
 
 
-\section{Stationary heat conduction in 1-D}
+\section*{Stationary heat conduction in 1-D}
 
 In a one dimensional pipe we are interested in the temperature evolution along the z-axis.  We will study the behaviour of the numerical solution based on finite differences.
 
 
 
-\subsection{Distretization to a linear system of equations}
+\subsection*{1) Distretization to a linear system of equations}
 
-The z-axis is discretization in $N+1$ points spreading from $0$ to $L$. the differential equation for the temperature is the following
+The z-axis is first discretized in $N+1$ points spreading from $0$ to $L$. The differential equation for the temperature is the following
 $$-\kappa \dfrac{d^{2}T}{dz^{2}} +v\rho C\dfrac{dT}{dz}=Q(z)$$
 with $$Q(z)= \left\{ \begin{array}{lll}
 0 & if & 0\leq z <a\\
@@ -118,9 +118,9 @@ We assumed that $\kappa$ as a constant value through the pipe.
 The boundary conditions are
 $$T(0)=T_{0}$$ and $$-\kappa \dfrac{dT}{dz}(L)=k_{v}(T(L)-T_{out}).$$
 
-For the discretization, let $T_{0}, T_{1}, \dots, T_{N}$ be the unknown temperature we will solve for. The step is $h=L/N$. Define $z_{i}=i*h$ and $T_{i}\approx T(z_{i})$. It is clear that $z_0 =0$ and $x_N =L$. We also define the ghost point $x_{N+1}=L+h$ that will be used implicitly to write the system. The real unknowns we will include in the system are  $T_{1}, \dots, T_{N}$. $T_{0}$ is known from the start. 
+For the discretization, let $T_{0}, T_{1}, \dots, T_{N}$ be the unknown temperature we will solve for. The step is $h=L/N$. Define $z_{i}=i*h$ and $T_{i}\approx T(z_{i})$. It is clear that $z_0 =0$ and $z_N =L$. We also define the ghost point $z_{N+1}=L+h$ that will be used implicitly to write the system. The real unknowns we will include in the system are  $T_{1}, \dots, T_{N}$. Obviously $T_{0}$ is known from the start. We therefore need $N$ linearly independent equations.
 
-The figure~\ref{fig:0} illustrates the discretization and the usage of ghost points depending on the boundary conditions.
+The figure~\ref{fig:0} illustrates the discretization and the usage of ghost points depending on the boundary conditions. 
 
 \begin{figure}[!h]
 \centering
@@ -129,6 +129,7 @@ The figure~\ref{fig:0} illustrates the discretization and the usage of ghost poi
 \label{fig:0}
 \end{figure}
 
+\FloatBarrier
 
 
 
@@ -141,23 +142,28 @@ $$\underbrace{\Big(-\dfrac{v\rho Ch}{2}  -\kappa    }_{\alpha}\Big) T_{i-1}
 + \underbrace{\Big( \dfrac{v\rho Ch}{2}  -\kappa    }_{\gamma}\Big) T_{i+1}
 =h^{2}Q(z_{i}),$$
 
+The previous are $N$ linear equations that feature the $N+2$ variables $T_{0}, T_{1}, \dots, T_{N+1}$.
+The first boundary condition gives 
+the straightforward $T_{0}=400$ which removes $T_{0}$ from the problem.
 
-As for the boundary condition we have 
-the straightforward $$T_{0}=400,$$
-as well as
+We also have 
 $$-\kappa \dfrac{T_{N+1}-T_{N-1}}{h}=k_{v}(T_{N}-T_{out}).$$
-This allows to express $T_{N+1}$ with other variables and remove it from the system of equations.
+This allows to express $T_{N+1}$ with other variables and remove it from the system of equations. We will then have $N$ unknowns in our system of $N$ difference equations.
 
-$$T_{N+1}=T_{N-1}-\dfrac{2hk_{v}}{k}T_{N}+\dfrac{2hk_{v}}{k}T_{out}.$$
+\begin{equation}
+T_{N+1}=T_{N-1}-\underbrace{\dfrac{2hk_{v}}{k}}_{\delta} T_{N}+\underbrace{\dfrac{2hk_{v}}{k}}_{\delta}T_{out}.
+\label{TN1}
+\end{equation}
+The final difference equation is the only one where $T_{N+1}$ appears. That is
+$$\alpha T_{N-1} + \beta T_{N} + \gamma T_{N-1} =h^{2} Q(z_{N}).$$
+
+We remove $T_{N+1}$ using equation~\ref{TN1} and this yields
+$$(\alpha+\gamma) T_{N-1} + (\beta-\gamma \delta) T_{N} + \gamma \delta T_{out} = h^{2}Q(z_{N}).$$
 
 
-This is a linear system of $N$ equations. As we would like to avoid dividing by the small value $h^2$, we rewrite the system as follows. This system is tridiagonal and the Matlab \textit{band solver} will be very (very) efficient is the matrix is defined as sparse.
+We now have a linear system of $N$ equations.  This system is tridiagonal and the Matlab \textit{band solver} will be very efficient is the matrix is defined as sparse.
 
-
-
-
-
-\subsection{Convergence of solution without convection}
+\subsection*{2) Convergence of solution without convection}
 
 We now set $v=0$ and solve the equation for increasing values of $N$. Results on figure~\ref{fig:1}.
 
@@ -170,7 +176,7 @@ We now set $v=0$ and solve the equation for increasing values of $N$. Results on
 
 We see that increasing $N$ has a great effect on the quality of the solution. Furthermore the solution corresponds visually well to the impulse $Q(z)$.
 
-\subsection{Increasing speed for $N=40$}
+\subsection*{3) Increasing speed for $N=40$}
 
 Let us set $N=40$. We will now have $v$ vary and take the values $0.1, 0.5, 1,10$. Results on figure~\ref{fig:2}.
 
@@ -183,7 +189,7 @@ Let us set $N=40$. We will now have $v$ vary and take the values $0.1, 0.5, 1,10
 
 We clearly notice that oscillations occur when $v=10$.
 
-\subsection{Increasing $N$ for $v=10$}
+%\subsection{Increasing $N$ for $v=10$}
 
 As we want to see better how the oscillation appears, we increase the precision with $N$ for $v$ fixed at 10. Results on figure~\ref{fig:3}.
 
