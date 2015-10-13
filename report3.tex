@@ -118,6 +118,8 @@ We assumed that $\kappa$ as a constant value through the pipe.
 The boundary conditions are
 $$T(0)=T_{0}$$ and $$-\kappa \dfrac{dT}{dz}(L)=k_{v}(T(L)-T_{out}).$$
 
+\paragraph*{DG: Discretize the interval to a Grid}
+
 For the discretization, let $T_{0}, T_{1}, \dots, T_{N}$ be the unknown temperature we will solve for. The step is $h=L/N$. Define $z_{i}=i*h$ and $T_{i}\approx T(z_{i})$. It is clear that $z_0 =0$ and $z_N =L$. We also define the ghost point $z_{N+1}=L+h$ that will be used implicitly to write the system. The real unknowns we will include in the system are  $T_{1}, \dots, T_{N}$. Obviously $T_{0}$ is known from the start. We therefore need $N$ linearly independent equations.
 
 The figure~\ref{fig:0} illustrates the discretization and the usage of ghost points depending on the boundary conditions. 
@@ -131,9 +133,10 @@ The figure~\ref{fig:0} illustrates the discretization and the usage of ghost poi
 
 \FloatBarrier
 
+\paragraph*{DD: Discretize the differential equation}
 
 
-With finite difference approximation we rewrite the problem as 
+With finite difference we discretize the equation as 
 $$-\kappa \dfrac{T_{i+1}-2T_{i}+T_{i-1}}{h^{2}}
 + v\rho C\dfrac{T_{i+1}-T_{i-1}}{2h}=Q(z_{i}),$$
 for all the points, $i=1, \dots N$. This is equivalent to
@@ -143,6 +146,9 @@ $$\underbrace{\Big(-\dfrac{v\rho Ch}{2}  -\kappa    }_{\alpha}\Big) T_{i-1}
 =h^{2}Q(z_{i}),$$
 
 The previous are $N$ linear equations that feature the $N+2$ variables $T_{0}, T_{1}, \dots, T_{N+1}$.
+
+\paragraph*{DB: Discretize the Boundary conditions}
+
 The first boundary condition gives 
 the straightforward $T_{0}=400$ which removes $T_{0}$ from the problem.
 
@@ -161,7 +167,36 @@ We remove $T_{N+1}$ using equation~\ref{TN1} and this yields
 $$(\alpha+\gamma) T_{N-1} + (\beta-\gamma \delta) T_{N} + \gamma \delta T_{out} = h^{2}Q(z_{N}).$$
 
 
-We now have a linear system of $N$ equations.  This system is tridiagonal and the Matlab \textit{band solver} will be very efficient is the matrix is defined as sparse.
+We now have a linear system of $N$ equations.  This system is tridiagonal and the Matlab \textit{band solver} will be very efficient is the matrix is defined as sparse. The system in our Matlab code can be visualized as follows.
+
+$$
+\begin{pmatrix}
+\beta  & \gamma &        &         &  & \\
+\alpha & \beta  & \gamma &         &  & \\
+       & \alpha & \ddots & \ddots  &  & \\
+       &        & \ddots &         &   &    \\
+	   &        &        & \alpha   & \beta   & \gamma \\
+	   &			&		&		  & (\alpha+\gamma)  & (\beta-\gamma \delta)
+\end{pmatrix}*
+\begin{pmatrix}
+T_{1}\\
+T_{2}\\
+\vdots\\
+T_{N}
+\end{pmatrix}
++\begin{pmatrix}
+\alpha T_{0}\\
+0\\
+\vdots\\
+0\\
+\gamma \delta T_{out}
+\end{pmatrix} =h^{2}
+\begin{pmatrix}
+Q(z_{1})\\
+\vdots\\
+Q(z_{N})\\
+\end{pmatrix}
+$$
 
 \subsection*{2) Convergence of solution without convection}
 
@@ -174,7 +209,11 @@ We now set $v=0$ and solve the equation for increasing values of $N$. Results on
 \label{fig:1}
 \end{figure}
 
-We see that increasing $N$ has a great effect on the quality of the solution. Furthermore the solution corresponds visually well to the impulse $Q(z)$.
+We see that increasing $N$ has a great effect on the quality of the solution. It seems to converge towards a smooth curve.
+
+The solution looks like a straight line on the intervals $[0,1]$ and $[3,10]$. This is to be expected. Since $v=0$ and on these intervals the function $Q$ is zero, the equation simplifies to $$\dfrac{d^{2}T}{dz^{2}}=0$$ whose solution is a straight line.
+
+We also check that the convexity is correct. Since $Q$ is non-negative, and again $v=0$, the solution must be concave. Indeed, second derivative is non-positive thanks to the equation.
 
 \subsection*{3) Increasing speed for $N=40$}
 
@@ -187,11 +226,14 @@ Let us set $N=40$. We will now have $v$ vary and take the values $0.1, 0.5, 1,10
 \label{fig:2}
 \end{figure}
 
-We clearly notice that oscillations occur when $v=10$.
+The maximal temperature decreases as $v$ increases. This makes sense physically since the fluid in the pipe has less time to heat up. For high speeds like $v=10$, the temperature barely changes as the fluid stays a very short time in the pipe.
+
+We clearly notice that oscillations occur when $v=10$. 
+The slope of the solution near the end of the rope increases with $v$. This seems to create numerical instabilities for large $v$.
 
 %\subsection{Increasing $N$ for $v=10$}
 
-As we want to see better how the oscillation appears, we increase the precision with $N$ for $v$ fixed at 10. Results on figure~\ref{fig:3}.
+As we want to see better how the oscillations behave, we now reduce the precision with $N$ for $v$ fixed at 10. Results on figure~\ref{fig:3}.
 
 \begin{figure}[!h]
 \centering
@@ -200,7 +242,7 @@ As we want to see better how the oscillation appears, we increase the precision 
 \label{fig:3}
 \end{figure}
 
-As the level of the discretization increases with $N$, we see more and more oscillation.
+As the level of the discretization decreases with $N$, we see more and more oscillations. At first ($N=40$) the instabilities are located at the right end of the pipe. As $N$ decreases, the instabilities propagate towards the left end of the pipe.
 
 
 \end{document}
