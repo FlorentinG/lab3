@@ -3,6 +3,9 @@ function [] = code3()
 % Authors: David Weicker and Florentin Goyens
 close all;
 
+
+% TEST kkkkkkkkkkkk
+
 %no speed and varible N
 N = [10 20 40 80];
 v = 0;
